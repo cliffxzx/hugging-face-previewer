@@ -1,9 +1,11 @@
 import './App.css';
-import Swipeviews from './swipeableviews.js';
+import AutoPlaySlide from './swipeableviews.js';
 
 function App() {
   return (
-    <Swipeviews />
+    <div>
+      <AutoPlaySlide />
+    </div>
   );
 }
 
