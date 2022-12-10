@@ -241,7 +241,7 @@ Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- `hello/initializers.py` now exists to define frequently used imports, variables, etc.
+- `model_monkey/initializers.py` now exists to define frequently used imports, variables, etc.
 
 ### Changed
 
@@ -281,7 +281,7 @@ Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 
-- `hello/blueprints/` namespace has been removed
+- `model_monkey/blueprints/` namespace has been removed
 - Unused `webpack` import in Webpack config
 - Remove Webpack's cache since the JIT compiler is pretty speedy as is
 
@@ -331,7 +331,7 @@ Changelog](https://keepachangelog.com/en/1.0.0/).
 - Update Python from `3.9.1` to `3.9.2`
 - Update Node from `14.15.1` to `14.5.5`
 - Update all Python and Node packages to their latest stable releases
-- Import `Redis` more efficiently in `hello/extensions.py`
+- Import `Redis` more efficiently in `model_monkey/extensions.py`
 - Disable Flask tip about `python-dotenv` when running any `flask` CLI command
 - Refactor `run` script to remove a lot of duplication by introducing helper functions
 
@@ -348,7 +348,7 @@ Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 
-- Unnecessary `CELERY_TASK_LIST` comment in `hello/app.py`, this was a left over copy / paste mishap
+- Unnecessary `CELERY_TASK_LIST` comment in `model_monkey/app.py`, this was a left over copy / paste mishap
 
 ## [0.1.0] - 2020-12-24
 

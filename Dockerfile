@@ -58,7 +58,7 @@ RUN chmod 0755 bin/* && bin/pip3-install
 
 ARG FLASK_DEBUG="false"
 ENV FLASK_DEBUG="${FLASK_DEBUG}" \
-    FLASK_APP="hello.app" \
+    FLASK_APP="model_monkey.app" \
     FLASK_SKIP_DOTENV="true" \
     PYTHONUNBUFFERED="true" \
     PYTHONPATH="." \
@@ -75,4 +75,4 @@ ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-c", "python:config.gunicorn", "hello.app:create_app()"]
+CMD ["gunicorn", "-c", "python:config.gunicorn", "model_monkey.app:create_app()"]

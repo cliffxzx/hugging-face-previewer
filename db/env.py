@@ -4,7 +4,7 @@ from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from hello.app import create_app
+from model_monkey.app import create_app
 
 # There's no access to current_app here so we must create our own app.
 app = create_app()

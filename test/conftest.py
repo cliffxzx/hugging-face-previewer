@@ -1,8 +1,8 @@
 import pytest
 
 from config import settings
-from hello.app import create_app
-from hello.extensions import db as _db
+from model_monkey.app import create_app
+from model_monkey.extensions import db as _db
 
 
 @pytest.fixture(scope="session")
