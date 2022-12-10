@@ -1,3 +1,6 @@
+@import '~shineout/dist/theme.default.css';
+@import '~shineout/dist/theme.antd.css';
+
 .App {
   text-align: center;
 }
