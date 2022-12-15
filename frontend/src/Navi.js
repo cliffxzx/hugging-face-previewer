@@ -12,30 +12,10 @@ const data = [
   {
     id: '2',
     title: 'Reference',
-    // children: [
-    //   {
-    //     id: '4',
-    //     title: 'Option 1',
-    //   },
-    //   {
-    //     id: '5',
-    //     title: 'Option 2',
-    //   },
-    // ],
   },
   {
     id: '3',
     title: 'Content',
-    // children: [
-    //   {
-    //     id: '7',
-    //     title: 'Option 3',
-    //   },
-    //   {
-    //     id: '8',
-    //     title: 'Option 4',
-    //   },
-    // ],
   }
 ]
 

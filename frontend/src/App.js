@@ -12,13 +12,13 @@ function App() {
     <div>
       <Navi/>
       <AutoPlaySlide />
-      <Input.Group style={{width: '60%'}}>
+      <Input.Group style={{padding: '5% 15%'}}>
         <Select keygen style={{ width: ''}} data={data} defaultValue="" placeholder="Model"/>
         <Input clearable placeholder="input something" style={{width: 360}} />
         <Button type='primary'>Compute</Button>
       </Input.Group>
       
-      </div>
+    </div>
   );
 }
 
