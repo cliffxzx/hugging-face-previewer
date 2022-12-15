@@ -8,6 +8,7 @@ const data = [
   {
     id: '1',
     title: 'Home',
+    link: 'http://localhost:3000/'
   },
   {
     id: '2',
@@ -16,6 +17,11 @@ const data = [
   {
     id: '3',
     title: 'Content',
+  },
+  {
+    id: '4',
+    title: 'Log in',
+    link: 'http://localhost:3000/#/login'
   }
 ]
 
@@ -40,6 +46,7 @@ class Navi extends React.Component {
       <Menu
         mode="horizontal"
         keygen="id"
+        linkKey="link"
         data={data}
         renderItem={d => d.title}
         active={da => active.includes(da.id)}

@@ -1,24 +1,35 @@
 // import logo from './logo.svg';
 import './App.css';
-import {Button, Input, Select} from 'shineout'
 import Navi from './Navi';
 import React from 'react';
-import AutoPlaySlide from './AutoplaySlides';
+import { HashRouter, Route, Routes } from "react-router-dom"
+import Login from './Login';
+import Home from './Home';
 
-const data = ['ALBERT', 'YOLOS', 'GPT-2', 'OTHERS']
+// const Layout = (props) => {
+//   return(
+//       <>
+//           <nav>
+//               aaa
+//           </nav> 
+//           { props.children }
+//       </>
+//   )
+// }
 
 function App() {
   return (
     <div>
-      <Navi/>
-      <AutoPlaySlide />
-      <Input.Group style={{padding: '5% 15%'}}>
-        <Select keygen style={{ width: ''}} data={data} defaultValue="" placeholder="Model"/>
-        <Input clearable placeholder="input something" style={{width: 360}} />
-        <Button type='primary'>Compute</Button>
-      </Input.Group>
-      
+      <Navi />
+      <HashRouter>
+        <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+        </Routes>
+      </HashRouter>
     </div>
+    
+
   );
 }
 
