@@ -2,9 +2,14 @@ import React from 'react'
 import { Card, Form, Input } from 'shineout'
 
 const Login=()=>{
+
+    const handleClick=(()=>{
+        window.alert("Please contact Cliff Chen()");
+    })
+
     return(
         <Card style={{ width: 500 , marginLeft: '30%', marginTop: '5%', marginBottom: '5%'}}>
-            <Card.Header>Login</Card.Header>
+            <Card.Header>Sign In</Card.Header>
 
             <Card.Body>
                 <br />
@@ -14,16 +19,19 @@ const Login=()=>{
                 }}
                 >
                 <Form.Item label="User name">
-                    <Input name="Username" defaultValue="user" />
+                    <Input name="Username" placeholder="user" />
                 </Form.Item>
 
                 <Form.Item label="Password">
-                    <Input name="Password" defaultValue="" />
+                    <Input.Password name="Password" />
                 </Form.Item>
                 </Form>
             </Card.Body>
 
             <Card.Footer align="right">
+                <div align='left'>
+                    <a onClick={handleClick}>Forget Password</a>
+                </div>
                 <Card.Submit>Submit</Card.Submit>
             </Card.Footer>
         </Card>
