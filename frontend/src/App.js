@@ -7,8 +7,6 @@ import Login from './Login';
 import Home from './Home';
 import Content from './Content';
 import Reference from './Reference';
-import Signup from './Signup';
-
 
 // const Layout = (props) => {
 //   return(
@@ -31,7 +29,6 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/content' element={<Content />} />
               <Route path='/reference' element={<Reference />} />
-              <Route path='/signup' element={<Signup />} />
         </Routes>
       </HashRouter>
     </div>

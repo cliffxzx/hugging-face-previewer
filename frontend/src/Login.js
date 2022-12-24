@@ -30,7 +30,7 @@ const Login=()=>{
 
             <Card.Footer align="right">
                 <div align='left'>
-                    <a onClick={handleClick}>Forget Password</a>
+                    <a href='http://localhost:3000/#/login' onClick={handleClick}>Forget Password</a>
                 </div>
                 <Card.Submit>Submit</Card.Submit>
             </Card.Footer>

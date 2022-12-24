@@ -10,7 +10,14 @@ const Signup=()=>{
                 <br />
                 <Form
                     onSubmit={data => {
-                        console.log(data)
+                        console.log(data);
+                        fetch(
+                            'http://localhost:3000', {
+                                method: 'POST',
+                                // mode: 'cors',
+                                body: JSON.stringify(data)
+                            }
+                        )
                     }}
                 >
                     <Form.Item label="Name">
