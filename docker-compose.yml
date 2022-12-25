@@ -1,4 +1,5 @@
-x-app: &default-app
+x-app:
+  &default-app
   build:
     context: "."
     target: "app"
@@ -8,7 +9,7 @@ x-app: &default-app
       - "FLASK_DEBUG=${FLASK_DEBUG:-false}"
       - "NODE_ENV=${NODE_ENV:-production}"
   depends_on:
-    - "postgres"
+    - "localstack"
     - "redis"
   env_file:
     - ".env"
@@ -18,40 +19,20 @@ x-app: &default-app
   volumes:
     - "${DOCKER_WEB_VOLUME:-./public:/app/public}"
 
-x-assets: &default-assets
-  build:
-    context: "."
-    target: "assets"
-    args:
-      - "UID=${UID:-1000}"
-      - "GID=${GID:-1000}"
-      - "NODE_ENV=${NODE_ENV:-production}"
-  env_file:
-    - ".env"
-  profiles: ["assets"]
-  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
-  stop_grace_period: "0"
-  tty: true
-  volumes:
-    - ".:/app"
-
 services:
-  postgres:
-    deploy:
-      resources:
-        limits:
-          cpus: "${DOCKER_POSTGRES_CPUS:-0}"
-          memory: "${DOCKER_POSTGRES_MEMORY:-0}"
+  localstack:
+    image: localstack/localstack:latest
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      # POSTGRES_DB: "${POSTGRES_DB}"
-    image: "postgres:15.1-bullseye"
-    profiles: ["postgres"]
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
-    stop_grace_period: "3s"
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - DEBUG=${DEBUG-1}
+      - SERVICES=s3,dynamodb,ec2
+    ports:
+      - '4510-4559:4510-4559'
+      - '4566-4583:4566-4583'
     volumes:
-      - "postgres:/var/lib/postgresql/data"
+      - "${TEMPDIR:-/tmp/localstack}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
 
   redis:
     deploy:
@@ -60,9 +41,11 @@ services:
           cpus: "${DOCKER_REDIS_CPUS:-0}"
           memory: "${DOCKER_REDIS_MEMORY:-0}"
     image: "redis:7.0.5-bullseye"
-    profiles: ["redis"]
+    profiles: [ "redis" ]
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
+    ports:
+      - "6380:6379"
     volumes:
       - "redis:/data"
 
@@ -81,7 +64,7 @@ services:
       retries: 3
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
-    profiles: ["web"]
+    profiles: [ "web" ]
 
   worker:
     <<: *default-app
@@ -92,16 +75,6 @@ services:
         limits:
           cpus: "${DOCKER_WORKER_CPUS:-0}"
           memory: "${DOCKER_WORKER_MEMORY:-0}"
-    profiles: ["worker"]
-
-  js:
-    <<: *default-assets
-    command: "../run yarn:build:js"
-
-  css:
-    <<: *default-assets
-    command: "../run yarn:build:css"
-
+    profiles: [ "worker" ]
 volumes:
-  postgres: {}
   redis: {}

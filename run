@@ -81,13 +81,6 @@ function shell {
   cmd bash "${@}"
 }
 
-function psql {
-  # Connect to PostgreSQL
-  # shellcheck disable=SC1091
-  . .env
- _dc postgres psql -U "${POSTGRES_USER}" "${@}"
-}
-
 function redis-cli {
   # Connect to Redis
   _dc redis redis-cli "${@}"
@@ -113,24 +106,10 @@ function yarn:outdated {
   _dc js yarn outdated
 }
 
-function yarn:build:js {
-  # Build JS assets, this is meant to be run from within the assets container
-  mkdir -p ../public/js
-  node esbuild.config.js
-}
-
-function yarn:build:css {
-  # Build CSS assets, this is meant to be run from within the assets container
-  local args=()
-
-  if [ "${NODE_ENV:-}" == "production" ]; then
-    args=(--minify)
-  else
-    args=(--watch)
-  fi
-
-  mkdir -p ../public/css
-  tailwindcss --postcss -i css/app.css -o ../public/css/app.css "${args[@]}"
+function yarn:build {
+  # Build assets, this is meant to be run from within the assets container
+  mkdir -p ../public
+  yarn build
 }
 
 function clean {

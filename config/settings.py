@@ -5,18 +5,21 @@ SECRET_KEY = os.getenv("SECRET_KEY", None)
 SERVER_NAME = os.getenv(
     "SERVER_NAME", "localhost:{0}".format(os.getenv("PORT", "8000"))
 )
-# SQLAlchemy.
-pg_user = os.getenv("POSTGRES_USER", "model_monkey")
-pg_pass = os.getenv("POSTGRES_PASSWORD", "password")
-pg_host = os.getenv("POSTGRES_HOST", "postgres")
-pg_port = os.getenv("POSTGRES_PORT", "5432")
-pg_db = os.getenv("POSTGRES_DB", pg_user)
-db = f"postgresql://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}"
-SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", db)
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# AWS
+AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY", 'dummy')
+AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY", 'dummy')
+AWS_REGION = os.getenv("AWS_REGION", 'us-west-2')
+
+
+# Dynamodb
+DYNAMODB_URL = os.getenv("DYNAMODB_URL", 'http://localhost:4566')
+
+# S3
+S3_URL = os.getenv("S3_URL", 'http://localhost:4566')
 
 # Redis.
-REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379/0")
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
 # Celery.
 CELERY_CONFIG = {
@@ -24,3 +27,5 @@ CELERY_CONFIG = {
     "result_backend": REDIS_URL,
     "include": [],
 }
+
+DEBUG_TB_INTERCEPT_REDIRECTS = False

@@ -3,12 +3,10 @@ from flask import Flask
 from werkzeug.debug import DebuggedApplication
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from model_monkey.extensions import db
+from model_monkey.routes import api
 from model_monkey.extensions import debug_toolbar
 from model_monkey.extensions import flask_static_digest
-from model_monkey.page.views import page
-from model_monkey.up.views import up
-
+from model_monkey.seeds import seeder
 
 def create_celery_app(app=None):
     """
@@ -43,7 +41,7 @@ def create_app(settings_override=None):
     :param settings_override: Override settings
     :return: Flask app
     """
-    app = Flask(__name__, static_folder="../public", static_url_path="")
+    app = Flask(__name__, static_folder='../public', static_url_path='')
 
     app.config.from_object("config.settings")
 
@@ -51,11 +49,8 @@ def create_app(settings_override=None):
         app.config.update(settings_override)
 
     middleware(app)
-
-    app.register_blueprint(up)
-    app.register_blueprint(page)
-
     extensions(app)
+    seeder(app)
 
     return app
 
@@ -68,8 +63,8 @@ def extensions(app):
     :return: None
     """
     debug_toolbar.init_app(app)
-    db.init_app(app)
     flask_static_digest.init_app(app)
+    api.init_app(app)
 
     return None
 
@@ -81,7 +76,7 @@ def middleware(app):
     :param app: Flask application instance
     :return: None
     """
-    # Enable the Flask interactive debugger in the brower for development.
+    # Enable the Flask interactive debugger in the browwer for development.
     if app.debug:
         app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
 
